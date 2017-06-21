@@ -1,3 +1,5 @@
 FROM mysql:5.7.13
-COPY replication.cnf /etc/mysql/conf.d
-COPY initialize-database.sql /docker-entrypoint-initdb.d
+ENV VERSION=0.12.4
+ADD https://raw.githubusercontent.com/eventuate-local/eventuate-local/release_${VERSION}.RELEASE/mysql.conf.d/replication.cnf /etc/mysql/conf.d
+ADD https://raw.githubusercontent.com/eventuate-local/eventuate-local/release_${VERSION}.RELEASE/mysql/initialize-database.sql /docker-entrypoint-initdb.d
+RUN chmod +r /etc/mysql/conf.d/replication.cnf /docker-entrypoint-initdb.d/initialize-database.sql
